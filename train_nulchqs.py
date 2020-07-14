@@ -2,19 +2,18 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
-from torch.optim import SGD, Adam
-from torch.optim.lr_scheduler import StepLR
+from torch.optim import Adam
 
 import numpy as np
 
-from irc import datasets, networks, utils, loss, kernels
+import datasets, networks, utils, loss, kernels
 
 import os
 import sys
 import time
 import argparse
-import pdb
 import tqdm
+
 
 def train_greedy(loader, model, optimizer, criterion, epoch, d1, d2):
     running_l1 = 0
