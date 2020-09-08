@@ -13,12 +13,12 @@ import matplotlib.pyplot as plt
 
 def to_tensor(array, device):
     tensor = torch.from_numpy(array)
-    if tensor.dim() == 2:
+    if len(tensor.shape) == 2:
         tensor = tensor.unsqueeze(0).unsqueeze(0)
     else:
         tensor = tensor.permute(2, 0, 1)
         tensor = tensor.unsqueeze(0)
-    return tensor.to(device)
+    return tensor.to(device).float()
 
 
 def to_numpy(tensor):
