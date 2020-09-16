@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from skimage.metrics import structural_similarity, peak_noise_signal_ratio
+from skimage.metrics import structural_similarity, peak_signal_noise_ratio
 
 import numpy as np
 
@@ -20,6 +20,14 @@ class MSELossGreedy(nn.Module):
                 error = error + F.mse_loss(input, target)
         return error
 
+
+class L1Loss(nn.Module):
+    def __init__(self):
+        super(L1Loss, self).__init__()
+        
+    def forward(self, inputs, target):
+        return F.l1_loss(inputs[-1], target)
+    
 
 class L1LossGreedy(nn.Module):
     def __init__(self):

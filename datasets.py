@@ -68,7 +68,9 @@ class NonUniformTrainDataset(data.Dataset):
         self.transform = transform
         self.train = train
 
+
     def __getitem__(self, index):
+        
         x = self.data['img'][index].unsqueeze(0)
         y = self.data['imblur'][index].unsqueeze(0)
         mag = self.data['mag'][index]
@@ -77,19 +79,3 @@ class NonUniformTrainDataset(data.Dataset):
 
     def __len__(self):
         return len(self.data['img'])
-
-
-class LevinDataset(data.Dataset):
-    def __init__(self, datapath):
-        self.datapath = sorted(os.listdir(datapath))
-        self.datapath = list(map(lambda x: os.path.join(datapath, x), self.datapath))
-
-    def __getitem__(self, index):
-        data = loadmat(self.datapath[index])
-        x = torch.from_numpy(data['x']).unsqueeze(0).float()
-        y = torch.from_numpy(data['y']).unsqueeze(0).float()
-        f = torch.from_numpy(data['f']).unsqueeze(0).float()
-        return x, y, f
-
-    def __len__(self):
-        return len(self.datapath)
