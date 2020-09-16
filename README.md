@@ -10,10 +10,12 @@ Please first run the setup.py file with `python setup.py install` to compile the
 
 We provide the training code for both uniform and non-uniform setting in `train_lchqs.py` and `train_nulchqs.ps` where the default parameters enables to reproduce the results in the paper:
 
-* Uniform training (blind setting): `python train_lchqs.py --n_epochs 150 --n_in 2 --n_out 5`;
-* Uniform training (non-blind setting): `python train_lchqs.py --n_epochs 150 --n_in 2 --n_out 5 --blind 0`;
-* Non-uniform training (blind setting): `python train_nulchqs.py --n_epochs 150 --n_in 2 --n_out 5`;
-* Non-uniform training (non-blind setting): `python train_nulchqs.py --n_epochs 150 --n_in 2 --n_out 5 --blind 0`;
+* Uniform training (blind setting): `python train_lchqs.py --n_epochs 150 --n_in 2 --n_out 5 --sigma 5.0`;
+* Uniform training (non-blind setting): `python train_lchqs.py --n_epochs 150 --n_in 2 --n_out 5 --blind 0 --sigma 1.0`;
+* Non-uniform training (blind setting): `python train_nulchqs.py --n_epochs 150 --n_in 2 --n_out 5 --sigma 5.0`;
+* Non-uniform training (non-blind setting): `python train_nulchqs.py --n_epochs 150 --n_in 2 --n_out 5 --blind 0 --sigma 1.0`;
+
+First line is blind training of the uniform model with Gaussian noises between 0.5 and 12.75 (5%) of magnitude. Second line is non-blind training of the uniform model with Gaussian noises 2.55 (1%) of magnitude. The third and fourth lines are the equivalent training scenarios for non-uniform deblurring.
 
 ### Evaluation
 
@@ -26,7 +28,7 @@ In case of any trouble, please reach me at `thomas.eboli@inria.fr` or open an is
 ### Citation
 
 If you find the code helpful in your resarch or work, please cite the following paper.
-'''
+```
 @inproceedings{eboli2020end2end,
     title={End-to-end Interpretable Learning of Non-blind Image Deblurring},
     author={Eboli, Thomas and Sun, Jian and Ponce, Jean},
