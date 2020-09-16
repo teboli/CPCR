@@ -16,7 +16,7 @@ n_out = 5  # number of HQS iterations
 n_in = 2  # number of CPCR iterations
 
 
-# directly use model train on low noise, e.g., Levin dataset-like, for real images
+# directly use model train on low noise, e.g., Levin dataset-like, for real images, 0.50 <=> 0.196% noise
 modelpath = './data/lchqs_out_%02d_in_%02d_sigma_0.50.pt' % (n_out, n_in)
     
 datapath = './data'

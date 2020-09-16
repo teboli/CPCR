@@ -132,7 +132,6 @@ class LCHQS(HQS):
         y = input
         x = y.clone()
         for i in range(self.n_iter):
-            x = x.detach()
             # z update
             x1 = conv.conv2d(x, k1, 'replicate')
             z1 = self.denoiser[i](x1)
@@ -196,7 +195,6 @@ class NULCHQS(HQS):
         y = input
         x = y.clone()
         for i in range(self.n_iter):
-            x = x.detach()
             # z update
             x1 = F.conv2d(F.pad(x, k_padding, 'replicate'), k1)
             z1 = self.denoiser[i](x1)

@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 import torch.nn.functional as F
-from irc.layers.functions import ConvMotionFunction, InvConvMotionFunction, ConvClsFunction, LineFunction
+from .functions import ConvMotionFunction, InvConvMotionFunction, ConvClsFunction, LineFunction
 
 import numpy as np
 
@@ -40,7 +40,6 @@ class ConvCls(nn.Module):
     def __init__(self, weightpath):
         super(ConvCls, self).__init__()
         self.weight = nn.Parameter(torch.load(weightpath))
-        # self.weight.data = self.weight.data.flip((2,3))
         self.bias = nn.Parameter(torch.zeros(self.weight.size(0)), requires_grad=False)
 
     def forward(self, x, labels):

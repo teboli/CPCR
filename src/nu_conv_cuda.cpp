@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include <iostream>
+
 // CUDA forward declarations
 
 at::Tensor conv_motion_cuda_forward(

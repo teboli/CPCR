@@ -22,6 +22,8 @@ if blind:
     modelpath = './data/lchqs_out_%02d_in_%02d_blind_0.5_to_%2.2f.pt' % (n_out, n_in, 255/100*sigma)
 else:
     modelpath = './data/lchqs_out_%02d_in_%02d_sigma_%2.2f.pt' % (n_out, n_in, 255/100*sigma)
+    
+print(modelpath)
 
 datapath = './data'
 

@@ -21,7 +21,9 @@ pregu = 1e-2  # regularization for computing the inverse kernel (\rho in the pap
 if blind:
     modelpath = './data/nulchqs_out_%02d_in_%02d_blind_0.5_to_%2.2f.pt' % (n_out, n_in, 255/100*sigma)
 else:
-    modelpath = './data/nulchqs_out_%02d_in_%02d_sigma_%d.pt' % (n_out, n_in, 255/100*sigma)
+    modelpath = './data/nulchqs_out_%02d_in_%02d_sigma_%2.2f.pt' % (n_out, n_in, 255/100*sigma)
+    
+print(modelpath)
     
 datapath = './data'
     
@@ -70,12 +72,12 @@ with torch.no_grad():
     hat_x = []
     for c in range(y.shape[1]):
         yc = y[:,c].unsqueeze(1)
-        hat_x = model(yc, mag, ori, labels, k1, k2, d1, d2)[-1]
-    hat_x = torch.cat(hat_x, 1)
+        hat_x.append(model(yc, mag, ori, labels, k1, k2, d1, d2)[-1])
+    hat_x = torch.cat(hat_x, 1).clamp(0,1)
     
     pred = utils.to_numpy(hat_x)
     psnr = metrics.peak_signal_noise_ratio(pred, img)
     
 print('PSNR is %2.2f' % psnr)
     
-io.imsave(os.path.join(datapath, 'nonuniform_result.png'))
+io.imsave(os.path.join(datapath, 'nonuniform_result.png'), pred)

@@ -115,7 +115,7 @@ if __name__ == '__main__':
     opts = parser.parse_args()
 
     ### data loader
-    datapath = '/sequoia/data2/teboli/irc_nonblind/data/training_nonuniform'
+#     datapath = '/sequoia/data2/teboli/irc_nonblind/data/training_nonuniform'
 #     datapath = opts.datapath
     savepath = './results'
     savepath = os.path.join(savepath, 'nonuniform_T_%02d_S_%02d' % (opts.n_out, opts.n_in))
@@ -127,7 +127,7 @@ if __name__ == '__main__':
     modelpath = os.path.join(savepath, 'weights')
     os.makedirs(modelpath, exist_ok=True)
     #images = '/sequoia/data1/teboli/irc_nonblind/data/'
-#     datapath = '/sequoia/data1/teboli/irc_nonblind/data/training_nonuniform/'
+    datapath = '/sequoia/data1/teboli/irc_nonblind/data/training_nonuniform/'
     #savepath = '/sequoia/data1/teboli/irc_nonblind/results/training_nonuniform/'
     #savepath = os.path.join(savepath, 'net4_nu_l1_aug_nout_%02d_nl_2.55' % (opts.n_out))
     #os.makedirs(savepath, exist_ok=True)
@@ -146,10 +146,13 @@ if __name__ == '__main__':
     ######## STAGEWISE TRAINING ########
     ### model
 #     fts = torch.load('/sequoia/data1/teboli/irc_nonblind/data/kernels/kers_grad_0.pt')
-    fts = torch.load('./data/kers_grad.pt')
-    weights = fts[:, 0].unsqueeze(1)
+#     fts = torch.load('./data/kers_grad.pt')
+    d0 = torch.load('./data/inverse_filters_nonunifom.pt', map_location='cpu')
+#     weights = fts[:, 0].unsqueeze(1)
+    d0 = d0[:,0].unsqueeze(1)
 
-    model = networks.NULCHQS(weights, opts.n_out, opts.n_in)
+#     model = networks.NULCHQS(weights, opts.n_out, opts.n_in)
+    model = networks.NULCHQS(d0, opts.n_out, opts.n_in)
     if opts.load_epoch > 0:
         filename = 'epoch_%03d.pt' % (opts.load_epoch)
         state_dict_path = os.path.join(modelpath, filename)
@@ -197,7 +200,8 @@ if __name__ == '__main__':
     loadpath = os.path.join(modelpath, 'epoch_%03d.pt' % opts.n_epochs)
 
     # model
-    model = networks.NULCHQS(weights, opts.n_out, opts.n_in)
+#     model = networks.NULCHQS(weights, opts.n_out, opts.n_in)
+    model = networks.NULCHQS(d0, opts.n_out, opts.n_in)
     state_dict = torch.load(loadpath, map_location='cpu')
     model.load_state_dict(state_dict)
     if opts.load_epoch > opts.n_epochs:

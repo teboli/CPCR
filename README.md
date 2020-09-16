@@ -6,7 +6,7 @@ This repository is for the non-blind deblurring method introduced in the followi
 
 ### Installation
 
-Please first run the setup.py file with `python setup.py install` to compile the custom non-uniform convolution layer. This should work for any GPU.
+Please first run the setup.py file with `python setup.py install` to compile the custom non-uniform convolution layer. This should work for any GPU. I used in my experiments pytorch 1.4.0 and cuda 9.0 but it should be ok to use more recent versions of these libraries.
 
 ### Training
 
