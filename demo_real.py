@@ -12,12 +12,12 @@ import networks, datasets, utils, kernels
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-n_out = 5
-n_in = 2
+n_out = 5  # number of HQS iterations
+n_in = 2  # number of CPCR iterations
 
 
 # directly use model train on low noise, e.g., Levin dataset-like, for real images
-modelpath = './data/lchqs_out_%02d_in_%02d_sigma_0.pt' % (n_out, n_in)
+modelpath = './data/lchqs_out_%02d_in_%02d_sigma_0.50.pt' % (n_out, n_in)
     
 datapath = './data'
 # image = 'hanzi'; pregu = 3e-2
@@ -37,7 +37,7 @@ ker = img_as_float(io.imread(os.path.join(datapath, image +  '_kernel.png')))
 ker /= np.sum(ker)
 ker = np.clip(ker, 0, 1)
 
-# compute inverse filters for k1 and k2
+# compute inverse filters for k1 and k2 with fixed size of 31x31
 k1 = model.weight[0]
 k2 = model.weight[1]
 
@@ -56,7 +56,7 @@ y = utils.to_tensor(imblur, device)
 k = utils.to_tensor(ker, device)
 k = torch.rot90(k, 2, (-1,-2))
 ps = int(2.0*k.shape[-1])
-if ps % 2 == 0: ps +=1
+if ps % 2 == 0: ps +=1 # the inverse kernel has an odd size
 d = kernels.compute_inverse_filter_basic_fft(k[0], pregu, ps)
 d = d.unsqueeze(0).unsqueeze(0).to(device)
 

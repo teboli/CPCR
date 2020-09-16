@@ -119,9 +119,9 @@ if __name__ == '__main__':
     savepath = './results'
     savepath = os.path.join(savepath, 'nonuniform_T_%02d_S_%02d' % (opts.n_out, opts.n_in))
     if blind:
-        savepath += '_blind_0.5_to_%2.2f' % opts.noise_level
+        savepath += '_blind_0.5_to_%2.2f' % (255 / 100 * opts.sigma)
     else:
-        savepath += '_nonblind_%2.2f' % opts.noise_level
+        savepath += '_nonblind_%2.2f' % (255 / 100 * opts.sigma)
     os.makedirs(savepath, exist_ok=True)
     modelpath = os.path.join(savepath, 'weights')
     os.makedirs(modelpath, exist_ok=True)
@@ -169,9 +169,9 @@ if __name__ == '__main__':
     if opts.load_epoch < opts.n_epochs:
         for epoch in range(opts.load_epoch, opts.n_epochs, 1):
             print('### Epoch %03d ###' % (epoch+1))
-            train_l1 = train(loader_tr, model, optimizer, criterion, epoch, d1, d2, opts.blind, opts.noise_level)
+            train_l1 = train(loader_tr, model, optimizer, criterion, epoch, d1, d2, opts.blind, 255 / 100 *opts.sigma)
             print('   TR L1: %2.5f' % (train_l1))
-            val_psnr, val_ssim, val_l1 = validate(loader_va, model, epoch, d1, d2, opts.blind, opts.noise_level)
+            val_psnr, val_ssim, val_l1 = validate(loader_va, model, epoch, d1, d2, opts.blind, 255 / 100 * opts.sigma)
             print('   VA L1: %2.5f / PSNR: %2.2f / SSIM: %2.3f' % (val_l1, val_psnr, val_ssim))
 
             # save net

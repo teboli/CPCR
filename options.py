@@ -12,8 +12,8 @@ def options():
     parser.add_argument('--datasize', type=int, default=3000, help='Number of training samples.')
     parser.add_argument('--ps', type=int, default=180, help='Size of training images.')
     parser.add_argument('--load_epoch', type=int, default=0, help='Epoch to relead training; 0 is no loading.')
-    parser.add_argument('--noise_level', type=float, default=12.75)
-    parser.add_argument('--blind', type=int, default=1, help='Training on all noise levels between 0.5 and args.noise_level or only on args.noise_level')
+    parser.add_argument('--sigma', type=float, default=-1.0, help='Pourcentage of noise level.')
+    parser.add_argument('--blind', type=int, default=1, help='Weither training on all noise levels between 0.5 and 255/100*args.sigma or only at 255/100*args.sigma')
     parser.add_argument('--datapath', type=str, default='./data/training_uniform', help='Path of training samples.')
     parser.add_argument('--lambd', type=float, default=1e-2, help='Weight for regularization in Eq.(10).')
 

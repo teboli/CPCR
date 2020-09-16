@@ -12,16 +12,16 @@ import networks, datasets, utils, kernels
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-n_out = 5
-n_in = 2
-sigma = 1.
-blind = False
-pregu = 1e-2
+n_out = 5  # number of HQS iterations
+n_in = 2  # number of CPCR iterations
+sigma = 1.  # noise level (in %)
+blind = False  # weither to use a noise-specific net or one trained for all noise levels
+pregu = 1e-2  # regularization for computing the inverse kernel (\rho in the paper)
 
 if blind:
-    modelpath = './data/nulchqs_out_%02d_in_%02d_blind.pt' % (n_out, n_in)
+    modelpath = './data/nulchqs_out_%02d_in_%02d_blind_0.5_to_%2.2f.pt' % (n_out, n_in, 255/100*sigma)
 else:
-    modelpath = './data/nulchqs_out_%02d_in_%02d_sigma_%d.pt' % (n_out, n_in, sigma)
+    modelpath = './data/nulchqs_out_%02d_in_%02d_sigma_%d.pt' % (n_out, n_in, 255/100*sigma)
     
 datapath = './data'
     
