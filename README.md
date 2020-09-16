@@ -1,6 +1,8 @@
 # CPCR
 
-Code for the paper "End-to-end Interpretable Learning of Non-blind Image Deblurring" at ECCV 2020 by Jian Sun, Jean Ponce and I.
+This repository is for the non-blind deblurring method introduced in the following paper
+
+[Thomas Eboli](https://www.di.ens.fr/thomas.eboli/), [Jian Sun](http://gr.xjtu.edu.cn/web/jiansun) and [Jean Ponce](https://www.di.ens.fr/~ponce/), "End-to-end Interpretable Learning of Non-blind Image Deblurring", ECCV 2020, [[arXiv]](https://arxiv.org/abs/2007.01769).
 
 ### Installation
 
