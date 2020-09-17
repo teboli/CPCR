@@ -20,9 +20,12 @@ n_in = 2  # number of CPCR iterations
 modelpath = './data/lchqs_out_%02d_in_%02d_sigma_0.50.pt' % (n_out, n_in)
     
 datapath = './data'
-# image = 'hanzi'; pregu = 3e-2
+image = 'hanzi'; pregu = 3e-2
 # image = 'toy'; pregu = 2e-2
-image = 'postcard'; pregu = 2e-2
+# image = 'postcard'; pregu = 2e-2
+# image = 'text7_patch_use'; pregu = 2e-2
+# image = 'wall'; pregu = 1e-2
+image = 'summerhouse'; pregu = 2e-2
     
 # load model
 model = networks.LCHQS(n_out, n_in)
@@ -32,8 +35,8 @@ model.to(device)
 model.eval()
 
 # load images and blur kernel
-imblur = img_as_float(io.imread(os.path.join(datapath, image + '_blurry.png')))
-ker = img_as_float(io.imread(os.path.join(datapath, image +  '_kernel.png')))
+imblur = img_as_float(io.imread(os.path.join(datapath, image + '_blur.jpg')))
+ker = img_as_float(io.imread(os.path.join(datapath, image +  '_kernel.jpg')))
 ker /= np.sum(ker)
 ker = np.clip(ker, 0, 1)
 
@@ -70,4 +73,4 @@ with torch.no_grad():
     
     pred = utils.to_numpy(hat_x)
     
-io.imsave(os.path.join(datapath, image + '_result.png'), pred)
+io.imsave(os.path.join(datapath, image + '_result.jpg'), pred)
