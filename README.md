@@ -8,6 +8,10 @@ This repository is for the non-blind deblurring method introduced in the followi
 
 Please first run the setup.py file with `python setup.py install` to compile the custom non-uniform convolution layer. This should work for any GPU. I used in my experiments pytorch 1.4.0 and cuda 9.0 but it should be ok to use more recent versions of these libraries.
 
+### Evaluation
+
+One can directly use our pretrained model. We provide five real-world blurry images with kernels estimated with the code of [Pan et al., Blind Image Deblurring Using Dark Channel Prior, CVPR 2016] and the demo code in `demo_real.py`. We also provide one example of synthetic blurry and noisy (3% Gaussian noise) with uniform blur in `demo_uniform.py` and one example of synthetic blurry and noisy (1% Gaussian noise) with non-uniform motion blur obtained with the code of [Gong et al., From Motion Blur to Motion Flow: a Deep Learning Solution for Removing Heterogeneous Motion Blur, CVPR 2017] in `demo_nonuniform.py`.
+
 ### Training
 
 We provide the training code for both uniform and non-uniform setting in `train_lchqs.py` and `train_nulchqs.ps` where the default parameters enables to reproduce the results in the paper:
@@ -18,10 +22,6 @@ We provide the training code for both uniform and non-uniform setting in `train_
 * Non-uniform training (non-blind setting): `python train_nulchqs.py --n_epochs 150 --n_in 2 --n_out 5 --blind 0 --sigma 1.0`;
 
 First line is blind training of the uniform model with Gaussian noises between 0.5 and 12.75 (5%) of magnitude. Second line is non-blind training of the uniform model with Gaussian noises 2.55 (1%) of magnitude. The third and fourth lines are the equivalent training scenarios for non-uniform deblurring.
-
-### Evaluation
-
-One can directly use our pretrained model. We provide one example of synthetic blurry and noisy (3% Gaussian noise) with uniform blur, one example of synthetic blurry and noisy (1% Gaussian noise) with non-uniform motion blur obtained with the code of [Gong et al., From Motion Blur to Motion Flow: a Deep Learning Solution for Removing Heterogeneous Motion Blur, CVPR 2017] and three real-world blurry images with kernels estimated with the code of [Pan et al., Blind Image Deblurring Using Dark Channel Prior, CVPR 2016].
 
 ### Troubleshouting
 
